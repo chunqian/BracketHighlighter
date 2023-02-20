@@ -696,7 +696,7 @@
             // for themes that already provide something.
             // As this has always been the only one we've provided
             // by default, all the others will use region-ish colors.
-            "color": "region.yellowish brackethighlighter.default",
+            "color": "brackethighlighter.default",
             "style": "underline"
         },
 
@@ -706,7 +706,7 @@
         "unmatched": {
             "icon": "question",
             "color": "region.redish",
-            "style": "outline"
+            "style": "underline"
         },
         // User defined region styles
         "curly": {
