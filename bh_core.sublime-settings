@@ -711,7 +711,7 @@
         // User defined region styles
         "curly": {
             "icon": "curly_bracket",
-            "color": "region.purplish"
+            "color": "region.yellowish"
             // "style": "underline"
         },
         "round": {
