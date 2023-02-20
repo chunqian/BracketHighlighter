@@ -6,10 +6,10 @@ License: MIT
 """
 from backrefs import bre
 from . import bh_plugin
-from .bh_logging import debug, log
 from operator import itemgetter
 import sublime
 import sublime_plugin
+from .bh_log import log
 
 BH_STYLE = "default"
 BH_ENABLED = True
@@ -248,15 +248,16 @@ class SearchRules(object):
                         sub_find_regex.append(r"([^\s\S])")
                         sub_find_regex.append(r"([^\s\S])")
                 except Exception as e:
-                    log(e)
+                    log.error(e)
 
         if len(self.brackets):
             self.brackets = tuple(self.brackets)
-            debug(
+            log.stack()
+            log.debug(
                 "Bracket Pattern: (%s)\n" % ','.join(names) +
                 "    (Opening|Closing):     (?:%s)\n" % '|'.join(find_regex)
             )
-            debug(
+            log.debug(
                 "SubBracket Pattern: (%s)\n" % ','.join(subnames) +
                 "    (Opening|Closing): (?:%s)\n" % '|'.join(sub_find_regex)
             )
@@ -267,7 +268,7 @@ class SearchRules(object):
                 )
                 self.pattern = bre.compile_search("(?:%s)" % '|'.join(find_regex), bre.MULTILINE | bre.IGNORECASE)
             except Exception as e:
-                log(e)
+                log.error(e)
                 fail = True
             if (
                 fail or
@@ -275,7 +276,7 @@ class SearchRules(object):
                 self.pattern.groups != len(find_regex)
             ):
                 if not fail and self.sub_pattern.groups != len(sub_find_regex):
-                    log(
+                    log.info(
                         BRACKET_ERROR % (
                             len(sub_find_regex),
                             'sub-pattern',
@@ -284,7 +285,7 @@ class SearchRules(object):
                         )
                     )
                 if not fail and self.pattern.groups != len(find_regex):
-                    log(
+                    log.info(
                         BRACKET_ERROR % (
                             len(find_regex),
                             'pattern',
@@ -307,7 +308,7 @@ class SearchRules(object):
                     bh_plugin.load_modules(params, loaded_modules)
                     entry = ScopeDefinition(params)
                     if not entry.enabled:
-                        log(
+                        log.info(
                             SCOPE_ERROR % (
                                 str(params.get('name', '?')),
                                 "\\A" + params.get("open", ""),
@@ -330,13 +331,13 @@ class SearchRules(object):
                             self.scopes.append({"name": x, "brackets": [entry]})
                         else:
                             self.scopes[scopes[x]]["brackets"].append(entry)
-                    debug(
+                    log.debug(
                         "Scope Regex (%s)\n    Opening: %s\n    Closing: %s\n" % (
                             entry.name, entry.open.pattern, entry.close.pattern
                         )
                     )
                 except Exception as e:
-                    log(e)
+                    log.error(e)
 
 
 ####################

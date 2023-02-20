@@ -12,7 +12,7 @@ from collections import namedtuple
 import sys
 import traceback
 import re
-from .bh_logging import log
+from .bh_log import log
 
 
 class Payload(object):
@@ -79,7 +79,7 @@ def load_modules(obj, loaded):
         obj["highlighting"] = getattr(module, "highlighting", None)
         loaded.add(plib)
     except Exception:
-        log("Could not load module %s\n%s" % (plib, str(traceback.format_exc())))
+        log.info("Could not load module %s\n%s" % (plib, str(traceback.format_exc())))
         raise
 
 

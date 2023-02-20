@@ -15,8 +15,7 @@ from . import bh_plugin
 from . import bh_search
 from . import bh_regions
 from . import bh_rules
-from . import bh_popup
-from .bh_logging import debug, log
+from .bh_log import log
 
 if 'bh_thread' not in globals():
     bh_thread = None
@@ -255,7 +254,7 @@ class BhCore(object):
                     self.search.get_buffer()
                 )
             except Exception:
-                log("Plugin Bracket Find Error:\n%s" % str(traceback.format_exc()))
+                log.info("Plugin Bracket Find Error:\n%s" % str(traceback.format_exc()))
         return match
 
     def compare(self, first, second, scope_bracket=False):
@@ -283,7 +282,7 @@ class BhCore(object):
                         self.search.get_buffer()
                     )
             except Exception:
-                log("Plugin Compare Error:\n%s" % str(traceback.format_exc()))
+                log.info("Plugin Compare Error:\n%s" % str(traceback.format_exc()))
         return match
 
     def post_match(self, left, right, center, scope_bracket=False):
@@ -347,7 +346,7 @@ class BhCore(object):
                     else:
                         right = None
             except Exception:
-                log("Plugin Post Match Error:\n%s" % str(traceback.format_exc()))
+                log.info("Plugin Post Match Error:\n%s" % str(traceback.format_exc()))
 
         return left, right
 
@@ -754,82 +753,6 @@ class BhShowStringEscapeModeCommand(sublime_plugin.TextCommand):
         )
 
 
-class BhOffscreenPopupCommand(sublime_plugin.TextCommand):
-    """Command to manually show offscreen popup."""
-
-    def run(self, edit, point=None, no_threshold=False):
-        """Force popup."""
-
-        # Find other bracket
-        region = None
-        index = None
-        unmatched = False
-        between = None
-
-        # Ensure only 1 point is set
-        if point is not None:
-            sels = self.view.sel()
-            sels.clear()
-            sels.add(sublime.Region(point))
-
-        # Search with no threshold
-        if no_threshold:
-            self.view.run_command("bh_async_key", {"lines": True})
-
-        # Get point if not specified
-        if point is None:
-            sels = self.view.sel()
-            if len(sels) == 1 and sels[0].size() == 0:
-                point = sels[0].begin()
-
-        # Get relative bracket regions for point
-        if point is not None:
-            locations_key = 'bracket_highlighter.locations'
-            locations = self.view.settings().get(locations_key, {})
-            for k, v in locations.get('unmatched', {}).items():
-                if v[0] <= point <= v[1]:
-                    unmatched = True
-                    break
-            if not unmatched:
-                for k, v in locations.get('open', {}).items():
-                    if v[0] <= point <= v[1]:
-                        index = k
-                        between = None
-                        break
-                    elif v[0] <= point <= locations.get('close', {}).get(k)[1]:
-                        between = k
-
-                if index is None:
-                    for k, v in locations.get('close', {}).items():
-                        if v[0] <= point <= v[1]:
-                            index = k
-                            between = None
-                            break
-                    if index is not None:
-                        region = locations.get('open', {}).get(index)
-                        icon = locations.get('icon', {}).get(index)
-                else:
-                    region = locations.get('close', {}).get(index)
-                    icon = locations.get('icon', {}).get(index)
-
-            if between:
-                region = locations.get('open', {}).get(between)
-                region2 = locations.get('close', {}).get(between)
-                icon = locations.get('icon', {}).get(between)
-                bh_popup.BhOffscreenPopup().show_popup_between(self.view, point, region, region2, icon)
-            elif region is not None:
-                bh_popup.BhOffscreenPopup().show_popup(self.view, point, region, icon)
-            elif not no_threshold:
-                bh_popup.BhOffscreenPopup().show_unmatched_popup(self.view, point)
-
-    def is_enabled(self):
-        """Check if enabled."""
-
-        return bh_popup.HOVER_SUPPORT
-
-    is_visible = is_enabled
-
-
 class BhToggleHighVisibilityCommand(sublime_plugin.ApplicationCommand):
     """
     Toggle high visibility mode.
@@ -893,7 +816,7 @@ class BhKeyCommand(sublime_plugin.TextCommand):
     def execute(self):
         """Trigger actual BH command."""
 
-        debug("Key Event")
+        log.debug("Key Event")
         self.bh.match(self.view)
         bh_thread.ignore_all = False
         bh_thread.time = time()
@@ -922,7 +845,7 @@ class BhAsyncKeyCommand(BhKeyCommand):
     def async_execute(self):
         """Trigger actual BH command."""
 
-        debug("Async Key Event")
+        log.debug("Async Key Event")
         self.bh.match(self.view)
         bh_thread.ignore_all = False
         bh_thread.time = time()
@@ -971,49 +894,6 @@ class BhListenerCommand(sublime_plugin.EventListener):
     Try and reduce redundant requests by letting the
     background thread ensure certain needed match occurs
     """
-
-    def on_hover(self, view, point, hover_zone):
-        """Show popup indicating where other offscreen bracket is located."""
-
-        settings = sublime.load_settings('bh_core.sublime-settings')
-        if (
-            GLOBAL_ENABLE and bh_popup.HOVER_SUPPORT and
-            settings.get('show_offscreen_bracket_popup', True) and
-            not view.settings().get('bracket_highlighter.ignore', False)
-        ):
-            # Find other bracket
-            region = None
-            index = None
-            unmatched = False
-            if hover_zone == sublime.HOVER_TEXT:
-                locations_key = 'bracket_highlighter.locations'
-                locations = view.settings().get(locations_key, {})
-                for k, v in locations.get('unmatched', {}).items():
-                    if v[0] <= point <= v[1]:
-                        unmatched = True
-                        break
-                if not unmatched:
-                    for k, v in locations.get('open', {}).items():
-                        if v[0] <= point <= v[1]:
-                            index = k
-                            break
-                    if index is None:
-                        for k, v in locations.get('close', {}).items():
-                            if v[0] <= point <= v[1]:
-                                index = k
-                                break
-                        if index is not None:
-                            region = locations.get('open', {}).get(index)
-                            icon = locations.get('icon', {}).get(index)
-                    else:
-                        region = locations.get('close', {}).get(index)
-                        icon = locations.get('icon', {}).get(index)
-
-            # Show other bracket text
-            if unmatched:
-                bh_popup.BhOffscreenPopup().show_unmatched_popup(view, point)
-            elif region is not None:
-                bh_popup.BhOffscreenPopup().show_popup(view, point, region, icon)
 
     def on_load(self, view):
         """Search brackets on view load."""
@@ -1170,7 +1050,7 @@ def init_bh_match():
 
     global bh_match
     bh_match = BhCore().match
-    debug("Match object loaded.")
+    log.debug("Match object loaded.")
 
 
 def plugin_loaded():
