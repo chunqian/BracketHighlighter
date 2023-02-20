@@ -1,6 +1,6 @@
 {
     // Debug logging
-    "debug_enable": true,
+    "debug_enable": false,
 
     // When only either the left or right bracket can be found
     // this defines if the unmatched bracket should be shown.
@@ -609,7 +609,7 @@
         {
             "name": "pascal",
             "open": "(?:(?<=^)|(?<=[\\s;]))(try|(?<=\\=\\s)(?:class|record|interface)|begin|repeat)\\b",
-            "close": "(?<=[\\s;])(end(?=[;.\\s])|until(?=\\s))",
+            "close": "(?<=[\\s;])(end(?=[;\\s])|until(?=\\s))",
             "style": "default",
             "scope_exclude": ["string", "comment"],
             "plugin_library": "bh_modules.pascalkeywords",

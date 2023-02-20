@@ -252,7 +252,6 @@ class SearchRules(object):
 
         if len(self.brackets):
             self.brackets = tuple(self.brackets)
-            log.stack()
             log.debug(
                 "Bracket Pattern: (%s)\n" % ','.join(names) +
                 "    (Opening|Closing):     (?:%s)\n" % '|'.join(find_regex)
