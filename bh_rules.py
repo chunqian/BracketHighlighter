@@ -9,7 +9,7 @@ from . import bh_plugin
 from operator import itemgetter
 import sublime
 import sublime_plugin
-from .bh_log import log
+from .bh_logging import log
 
 BH_STYLE = "default"
 BH_ENABLED = True

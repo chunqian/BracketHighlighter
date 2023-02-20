@@ -12,10 +12,10 @@ import threading
 from queue import Queue
 import traceback
 from . import bh_plugin
-from . import bh_search
+from . import bh_searching
 from . import bh_regions
 from . import bh_rules
-from .bh_log import log
+from .bh_logging import log
 
 if 'bh_thread' not in globals():
     bh_thread = None
@@ -218,20 +218,20 @@ class BhCore(object):
 
             if scope_bracket:
                 if lbracket is not None:
-                    left = bh_search.ScopeEntry(lbracket.begin, lbracket.end, bracket_scope, bracket_type)
+                    left = bh_searching.ScopeEntry(lbracket.begin, lbracket.end, bracket_scope, bracket_type)
                 else:
                     left = None
                 if rbracket is not None:
-                    right = bh_search.ScopeEntry(rbracket.begin, rbracket.end, bracket_scope, bracket_type)
+                    right = bh_searching.ScopeEntry(rbracket.begin, rbracket.end, bracket_scope, bracket_type)
                 else:
                     right = None
             else:
                 if lbracket is not None:
-                    left = bh_search.BracketEntry(lbracket.begin, lbracket.end, bracket_type)
+                    left = bh_searching.BracketEntry(lbracket.begin, lbracket.end, bracket_type)
                 else:
                     left = None
                 if rbracket is not None:
-                    right = bh_search.BracketEntry(rbracket.begin, rbracket.end, bracket_type)
+                    right = bh_searching.BracketEntry(rbracket.begin, rbracket.end, bracket_type)
                 else:
                     right = None
         return left, right
@@ -329,20 +329,20 @@ class BhCore(object):
 
                 if scope_bracket:
                     if lbracket is not None:
-                        left = bh_search.ScopeEntry(lbracket.begin, lbracket.end, bracket_scope, bracket_type)
+                        left = bh_searching.ScopeEntry(lbracket.begin, lbracket.end, bracket_scope, bracket_type)
                     else:
                         left = None
                     if rbracket is not None:
-                        right = bh_search.ScopeEntry(rbracket.begin, rbracket.end, bracket_scope, bracket_type)
+                        right = bh_searching.ScopeEntry(rbracket.begin, rbracket.end, bracket_scope, bracket_type)
                     else:
                         right = None
                 else:
                     if lbracket is not None:
-                        left = bh_search.BracketEntry(lbracket.begin, lbracket.end, bracket_type)
+                        left = bh_searching.BracketEntry(lbracket.begin, lbracket.end, bracket_type)
                     else:
                         left = None
                     if rbracket is not None:
-                        right = bh_search.BracketEntry(rbracket.begin, rbracket.end, bracket_type)
+                        right = bh_searching.BracketEntry(rbracket.begin, rbracket.end, bracket_type)
                     else:
                         right = None
             except Exception:
@@ -421,7 +421,7 @@ class BhCore(object):
 
                 # Prepare for search
                 self.bracket_style = None
-                self.search = bh_search.Search(
+                self.search = bh_searching.Search(
                     view, self.rules,
                     sel, self.selection_threshold if not self.ignore_threshold else None
                 )
@@ -473,7 +473,7 @@ class BhCore(object):
             return True
         return False
 
-    def find_scopes(self, sel, adj_dir=bh_search.BH_ADJACENT_LEFT):
+    def find_scopes(self, sel, adj_dir=bh_searching.BH_ADJACENT_LEFT):
         """Find brackets by scope definition."""
 
         # Search buffer
@@ -553,9 +553,9 @@ class BhCore(object):
             bracket_count = 0
             for b in s["brackets"]:
                 left, right = scope_search.get_brackets(b.open, b.close, scope_count, bracket_count)
-                if left is not None and not self.validate(left, bh_search.BH_SEARCH_OPEN, True):
+                if left is not None and not self.validate(left, bh_searching.BH_SEARCH_OPEN, True):
                     left = None
-                if right is not None and not self.validate(right, bh_search.BH_SEARCH_CLOSE, True):
+                if right is not None and not self.validate(right, bh_searching.BH_SEARCH_CLOSE, True):
                     right = None
                 if not self.compare(left, right, scope_bracket=True):
                     left, right = None, None
@@ -629,24 +629,24 @@ class BhCore(object):
             center, self.sub_search_mode, scope
         )
         if self.rules.outside_adj and not bracket_search.touch_right and not self.recursive_guard:
-            if self.find_scopes(sel, bh_search.BH_ADJACENT_RIGHT):
+            if self.find_scopes(sel, bh_searching.BH_ADJACENT_RIGHT):
                 return None, None, True
             self.sub_search_mode = False
-        for o in bracket_search.get_open(bh_search.BH_SEARCH_LEFT):
-            if not self.validate(o, bh_search.BH_SEARCH_OPEN):
+        for o in bracket_search.get_open(bh_searching.BH_SEARCH_LEFT):
+            if not self.validate(o, bh_searching.BH_SEARCH_OPEN):
                 continue
-            if len(stack) and bracket_search.is_done(bh_search.BH_SEARCH_CLOSE):
+            if len(stack) and bracket_search.is_done(bh_searching.BH_SEARCH_CLOSE):
                 if self.compare(o, stack[-1]):
                     stack.pop()
                     continue
-            for c in bracket_search.get_close(bh_search.BH_SEARCH_LEFT):
-                if not self.validate(c, bh_search.BH_SEARCH_CLOSE):
+            for c in bracket_search.get_close(bh_searching.BH_SEARCH_LEFT):
+                if not self.validate(c, bh_searching.BH_SEARCH_CLOSE):
                     continue
                 if o.end <= c.begin:
                     stack.append(c)
                     continue
                 elif len(stack):
-                    bracket_search.remember(bh_search.BH_SEARCH_CLOSE)
+                    bracket_search.remember(bh_searching.BH_SEARCH_CLOSE)
                     break
 
             if len(stack):
@@ -662,21 +662,21 @@ class BhCore(object):
 
         # Grab each closest closing right side bracket and attempt to match it.
         # If the closing bracket cannot be matched, select it.
-        for c in bracket_search.get_close(bh_search.BH_SEARCH_RIGHT):
-            if not self.validate(c, bh_search.BH_SEARCH_CLOSE):
+        for c in bracket_search.get_close(bh_searching.BH_SEARCH_RIGHT):
+            if not self.validate(c, bh_searching.BH_SEARCH_CLOSE):
                 continue
-            if len(stack) and bracket_search.is_done(bh_search.BH_SEARCH_OPEN):
+            if len(stack) and bracket_search.is_done(bh_searching.BH_SEARCH_OPEN):
                 if self.compare(stack[-1], c):
                     stack.pop()
                     continue
-            for o in bracket_search.get_open(bh_search.BH_SEARCH_RIGHT):
-                if not self.validate(o, bh_search.BH_SEARCH_OPEN):
+            for o in bracket_search.get_open(bh_searching.BH_SEARCH_RIGHT):
+                if not self.validate(o, bh_searching.BH_SEARCH_OPEN):
                     continue
                 if o.end <= c.begin:
                     stack.append(o)
                     continue
                 else:
-                    bracket_search.remember(bh_search.BH_SEARCH_OPEN)
+                    bracket_search.remember(bh_searching.BH_SEARCH_OPEN)
                     break
 
             if len(stack):

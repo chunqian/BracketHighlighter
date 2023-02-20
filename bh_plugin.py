@@ -12,7 +12,7 @@ from collections import namedtuple
 import sys
 import traceback
 import re
-from .bh_log import log
+from .bh_logging import log
 
 
 class Payload(object):
