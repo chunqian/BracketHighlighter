@@ -100,7 +100,7 @@
     "ignore_block_mode_in_plugin": true,
 
     // Character threshold to search
-    "search_threshold": 5000,
+    "search_threshold": 50000,
 
     // Ignore threshold
     "ignore_threshold": false,
@@ -608,7 +608,7 @@
         // Pascal
         {
             "name": "pascal",
-            "open": "(?:(?<=^)|(?<=[\\s;]))(try|(?<=\\=\\s)(?:class|record|interface)|begin|repeat)\\b",
+            "open": "(?:(?<=^)|(?<=[\\s;]))(try|(?<=\\=\\s)(?:class|record|interface)|begin|repeat|case)\\b",
             "close": "(?<=[\\s;])(end(?=[;\\s])|until(?=\\s))",
             "style": "default",
             "scope_exclude": ["string", "comment"],
@@ -710,7 +710,7 @@
         },
         // User defined region styles
         "curly": {
-            "icon": "none",
+            "icon": "tag",
             // "color": "region.yellowish"
             // "style": "thin_underline"
         },
