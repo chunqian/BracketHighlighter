@@ -696,7 +696,7 @@
             // for themes that already provide something.
             // As this has always been the only one we've provided
             // by default, all the others will use region-ish colors.
-            "color": "region.yellowish brackethighlighter.default",
+            "color": "brackethighlighter.default",
             "style": "none"
         },
 
@@ -710,48 +710,48 @@
         },
         // User defined region styles
         "curly": {
-            "icon": "curly_bracket",
-            "color": "region.yellowish"
+            "icon": "none",
+            // "color": "region.yellowish"
             // "style": "thin_underline"
         },
         "round": {
-            "icon": "round_bracket",
-            "color": "region.yellowish"
+            "icon": "none",
+            // "color": "region.yellowish"
             // "style": "thin_underline"
         },
         "square": {
-            "icon": "square_bracket",
-            "color": "region.bluish"
+            "icon": "none",
+            // "color": "region.bluish"
             // "style": "thin_underline"
         },
         "angle": {
-            "icon": "angle_bracket",
-            "color": "region.orangish"
+            "icon": "none",
+            // "color": "region.orangish"
             // "style": "thin_underline"
         },
         "tag": {
             "icon": "tag",
-            "color": "region.orangish"
+            // "color": "region.orangish"
             // "style": "thin_underline"
         },
         "c_define": {
-            "icon": "hash",
-            "color": "region.yellowish"
+            "icon": "tag",
+            // "color": "region.yellowish"
             // "style": "thin_underline"
         },
         "single_quote": {
-            "icon": "single_quote",
-            "color": "region.greenish"
+            "icon": "none",
+            // "color": "region.greenish"
             // "style": "thin_underline"
         },
         "double_quote": {
-            "icon": "double_quote",
-            "color": "region.greenish"
+            "icon": "none",
+            // "color": "region.greenish"
             // "style": "thin_underline"
         },
         "regex": {
-            "icon": "star",
-            "color": "region.greenish"
+            "icon": "tag",
+            // "color": "region.greenish"
             // "style": "thin_underline"
         }
     }
