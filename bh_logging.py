@@ -4,6 +4,8 @@
     created: 2022-08-16
 ---------------------------------------------------------"""
 
+import sublime
+
 import sys
 import re
 import traceback
@@ -20,7 +22,8 @@ class Tinylog:
         prefix = "[\033[34mDEBUG\033[0m] "
         if self.nonColor == True:
             prefix = "[DEBUG] "
-        self.print(prefix, *args)
+        if sublime.load_settings("bh_core.sublime-settings").get('debug_enable', False):
+            self.print(prefix, *args)
 
     def warn(self, *args):
         prefix = "[\033[33mWARN\033[0m] "

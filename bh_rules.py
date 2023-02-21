@@ -252,14 +252,14 @@ class SearchRules(object):
 
         if len(self.brackets):
             self.brackets = tuple(self.brackets)
-            # log.debug(
-            #     "Bracket Pattern: (%s)\n" % ','.join(names) +
-            #     "    (Opening|Closing):     (?:%s)\n" % '|'.join(find_regex)
-            # )
-            # log.debug(
-            #     "SubBracket Pattern: (%s)\n" % ','.join(subnames) +
-            #     "    (Opening|Closing): (?:%s)\n" % '|'.join(sub_find_regex)
-            # )
+            log.debug(
+                "Bracket Pattern: (%s)\n" % ','.join(names) +
+                "    (Opening|Closing):     (?:%s)\n" % '|'.join(find_regex)
+            )
+            log.debug(
+                "SubBracket Pattern: (%s)\n" % ','.join(subnames) +
+                "    (Opening|Closing): (?:%s)\n" % '|'.join(sub_find_regex)
+            )
             fail = False
             try:
                 self.sub_pattern = bre.compile_search(
@@ -330,11 +330,11 @@ class SearchRules(object):
                             self.scopes.append({"name": x, "brackets": [entry]})
                         else:
                             self.scopes[scopes[x]]["brackets"].append(entry)
-                    # log.debug(
-                    #     "Scope Regex (%s)\n    Opening: %s\n    Closing: %s\n" % (
-                    #         entry.name, entry.open.pattern, entry.close.pattern
-                    #     )
-                    # )
+                    log.debug(
+                        "Scope Regex (%s)\n    Opening: %s\n    Closing: %s\n" % (
+                            entry.name, entry.open.pattern, entry.close.pattern
+                        )
+                    )
                 except Exception as e:
                     log.error(e)
 

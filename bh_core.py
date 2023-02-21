@@ -816,7 +816,7 @@ class BhKeyCommand(sublime_plugin.TextCommand):
     def execute(self):
         """Trigger actual BH command."""
 
-        # log.debug("Key Event")
+        log.debug("Key Event")
         self.bh.match(self.view)
         bh_thread.ignore_all = False
         bh_thread.time = time()
@@ -845,7 +845,7 @@ class BhAsyncKeyCommand(BhKeyCommand):
     def async_execute(self):
         """Trigger actual BH command."""
 
-        # log.debug("Async Key Event")
+        log.debug("Async Key Event")
         self.bh.match(self.view)
         bh_thread.ignore_all = False
         bh_thread.time = time()
@@ -1050,7 +1050,7 @@ def init_bh_match():
 
     global bh_match
     bh_match = BhCore().match
-    # log.debug("Match object loaded.")
+    log.debug("Match object loaded.")
 
 
 def plugin_loaded():
