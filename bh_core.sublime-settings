@@ -691,68 +691,68 @@
         // a style does not define a color, it will
         // use the color from the "default" style.
         "default": {
-            "icon": "dot",
+            "icon": "tag",
             // Support the old convention of `brackethighlighter.default`
             // for themes that already provide something.
             // As this has always been the only one we've provided
             // by default, all the others will use region-ish colors.
-            "color": "brackethighlighter.default",
-            "style": "underline"
+            "color": "region.yellowish brackethighlighter.default",
+            "style": "none"
         },
 
         // This particular style is used to highlight
         // unmatched bracket pairs.  It is a special
         // style.
         "unmatched": {
-            "icon": "question",
+            "icon": "tag",
             "color": "region.redish",
-            "style": "underline"
+            "style": "none"
         },
         // User defined region styles
         "curly": {
             "icon": "curly_bracket",
             "color": "region.yellowish"
-            // "style": "underline"
+            // "style": "thin_underline"
         },
         "round": {
             "icon": "round_bracket",
             "color": "region.yellowish"
-            // "style": "underline"
+            // "style": "thin_underline"
         },
         "square": {
             "icon": "square_bracket",
             "color": "region.bluish"
-            // "style": "underline"
+            // "style": "thin_underline"
         },
         "angle": {
             "icon": "angle_bracket",
             "color": "region.orangish"
-            // "style": "underline"
+            // "style": "thin_underline"
         },
         "tag": {
             "icon": "tag",
             "color": "region.orangish"
-            // "style": "underline"
+            // "style": "thin_underline"
         },
         "c_define": {
             "icon": "hash",
             "color": "region.yellowish"
-            // "style": "underline"
+            // "style": "thin_underline"
         },
         "single_quote": {
             "icon": "single_quote",
             "color": "region.greenish"
-            // "style": "underline"
+            // "style": "thin_underline"
         },
         "double_quote": {
             "icon": "double_quote",
             "color": "region.greenish"
-            // "style": "underline"
+            // "style": "thin_underline"
         },
         "regex": {
             "icon": "star",
             "color": "region.greenish"
-            // "style": "underline"
+            // "style": "thin_underline"
         }
     }
 }
