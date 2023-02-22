@@ -37,7 +37,7 @@
     // },
     // Go to left bracket
     {
-        "caption": "BracketHighlighter: Jump to Top Bracket",
+        "caption": "BracketHighlighter: Jump Up",
         "command": "bh_async_key",
         "args":
         {
@@ -54,7 +54,7 @@
     },
     // Go to right bracket
     {
-        "caption": "BracketHighlighter: Jump to Bottom Bracket",
+        "caption": "BracketHighlighter: Jump Down",
         "command": "bh_async_key",
         "args":
         {
