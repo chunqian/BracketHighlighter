@@ -35,83 +35,83 @@
     //     "caption": "BracketHighlighter: Remove Brackets",
     //     "command": "bh_remove_brackets"
     // },
-    // // Go to left bracket
-    // {
-    //     "caption": "BracketHighlighter: Jump to Left Bracket",
-    //     "command": "bh_async_key",
-    //     "args":
-    //     {
-    //         "no_outside_adj": null,
-    //         "no_block_mode": null,
-    //         "lines" : true,
-    //         "plugin":
-    //         {
-    //             "type": ["__all__"],
-    //             "command": "bh_modules.bracketselect",
-    //             "args": {"select": "left"}
-    //         }
-    //     }
-    // },
-    // // Go to right bracket
-    // {
-    //     "caption": "BracketHighlighter: Jump to Right Bracket",
-    //     "command": "bh_async_key",
-    //     "args":
-    //     {
-    //         "no_outside_adj": null,
-    //         "no_block_mode": null,
-    //         "lines" : true,
-    //         "plugin":
-    //         {
-    //             "type": ["__all__"],
-    //             "command": "bh_modules.bracketselect",
-    //             "args": {"select": "right"}
-    //         }
-    //     }
-    // },
-    // // Select text between brackets
-    // {
-    //     "caption": "BracketHighlighter: Select Bracket Content",
-    //     "command": "bh_async_key",
-    //     "args":
-    //     {
-    //         "no_outside_adj": null,
-    //         "lines" : true,
-    //         "plugin":
-    //         {
-    //             "type": ["__all__"],
-    //             "command": "bh_modules.bracketselect"
-    //         }
-    //     }
-    // },
-    // // Select text including brackets
-    // {
-    //     "caption": "BracketHighlighter: Select Bracket Content with Brackets",
-    //     "command": "bh_async_key",
-    //     "args":
-    //     {
-    //         "no_outside_adj": null,
-    //         "lines" : true,
-    //         "plugin":
-    //         {
-    //             "type": ["__all__"],
-    //             "command": "bh_modules.bracketselect",
-    //             "args": {"always_include_brackets": true}
-    //         }
-    //     }
-    // },
-    // // Fold contents between brackets
-    // {
-    //     "caption": "BracketHighlighter: Fold Bracket Content",
-    //     "command": "bh_async_key",
-    //     "args":
-    //     {
-    //         "plugin": {
-    //             "type": ["__all__"],
-    //             "command" : "bh_modules.foldbracket"
-    //         }
-    //     }
-    // },
+    // Go to left bracket
+    {
+        "caption": "BracketHighlighter: Jump to Left Bracket",
+        "command": "bh_async_key",
+        "args":
+        {
+            "no_outside_adj": null,
+            "no_block_mode": null,
+            "lines" : true,
+            "plugin":
+            {
+                "type": ["__all__"],
+                "command": "bh_modules.bracketselect",
+                "args": {"select": "left"}
+            }
+        }
+    },
+    // Go to right bracket
+    {
+        "caption": "BracketHighlighter: Jump to Right Bracket",
+        "command": "bh_async_key",
+        "args":
+        {
+            "no_outside_adj": null,
+            "no_block_mode": null,
+            "lines" : true,
+            "plugin":
+            {
+                "type": ["__all__"],
+                "command": "bh_modules.bracketselect",
+                "args": {"select": "right"}
+            }
+        }
+    },
+    // Select text between brackets
+    {
+        "caption": "BracketHighlighter: Select Bracket Content",
+        "command": "bh_async_key",
+        "args":
+        {
+            "no_outside_adj": null,
+            "lines" : true,
+            "plugin":
+            {
+                "type": ["__all__"],
+                "command": "bh_modules.bracketselect"
+            }
+        }
+    },
+    // Select text including brackets
+    {
+        "caption": "BracketHighlighter: Select Bracket Content with Brackets",
+        "command": "bh_async_key",
+        "args":
+        {
+            "no_outside_adj": null,
+            "lines" : true,
+            "plugin":
+            {
+                "type": ["__all__"],
+                "command": "bh_modules.bracketselect",
+                "args": {"always_include_brackets": true}
+            }
+        }
+    },
+    // Fold contents between brackets
+    {
+        "caption": "BracketHighlighter: Fold Bracket Content",
+        "command": "bh_async_key",
+        "args":
+        {
+            "plugin": {
+                "type": ["__all__"],
+                "command" : "bh_modules.foldbracket"
+            }
+        }
+    },
     // { "caption": "-" },
     // // Toggle between string and regex escape mode for string brackets
     // {
