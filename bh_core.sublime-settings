@@ -351,7 +351,7 @@
             ],
             "scope_exclude_exceptions": ["text.tex string.other.math"],
             "language_filter": "blocklist",
-            "language_list": ["Plain text", "Hex"],
+            "language_list": ["Plain text", "Hex", "pascal"],
             "find_in_sub_search": "true",
             "ignore_string_escape": true,
             "enabled": true
@@ -605,6 +605,17 @@
             "sub_bracket_search": "true",
             "enabled": true
         },
+        // Pascal compile switches
+        {
+            "name": "pascal_compile_switch",
+            "open": "\\{\\$(if|ifc|ifdef|ifndef)\\b",
+            "close": "\\$(endif|endc)\\b\\}",
+            "style": "pascal_define",
+            "scope_exclude": ["string"],
+            "language_filter": "allowlist",
+            "language_list": ["pascal"],
+            "enabled": true
+        },
         // Pascal
         {
             "name": "pascal",
@@ -735,6 +746,11 @@
             // "style": "thin_underline"
         },
         "c_define": {
+            "icon": "tag",
+            // "color": "region.yellowish"
+            // "style": "thin_underline"
+        },
+        "pascal_define": {
             "icon": "tag",
             // "color": "region.yellowish"
             // "style": "thin_underline"
