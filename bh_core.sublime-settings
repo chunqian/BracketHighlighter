@@ -731,7 +731,7 @@
             // "style": "thin_underline"
         },
         "square": {
-            "icon": "none",
+            "icon": "tag",
             // "color": "region.bluish"
             // "style": "thin_underline"
         },
