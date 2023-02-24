@@ -375,7 +375,7 @@
                 "source.yaml-tmlanguage constant.character.escape"
             ],
             "language_filter": "blocklist",
-            "language_list": ["Plain text", "Hex", "RTF"],
+            "language_list": ["Plain text", "Hex", "RTF", "CMake"],
             "find_in_sub_search": "true",
             "ignore_string_escape": true,
             "enabled": true
@@ -645,7 +645,7 @@
             "open": "\\b(foreach|function|if|macro|while)\\b",
             "close": "\\b(end(?:foreach|function|if|macro|while))\\b",
             "style": "default",
-            "scope_exclude": ["-keyword.cmake"],
+            // "scope_exclude": ["-keyword.cmake"],
             "plugin_library": "bh_modules.cmakekeywords",
             "language_filter": "allowlist",
             "language_list": ["CMake"],
