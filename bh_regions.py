@@ -543,9 +543,9 @@ class BhRegion(object):
         open_icon_type = "no_icon"
         close_icon_type = "no_icon"
         if self.gutter_icons and (not self.no_multi_select_icons or not self.multi_select):
-            icon_type = "small_icon" if self.view.line_height() < 16 else "icon"
-            open_icon_type = "small_open_icon" if self.view.line_height() < 16 else "open_icon"
-            close_icon_type = "small_close_icon" if self.view.line_height() < 16 else "close_icon"
+            icon_type = "small_icon" if self.view.line_height() < 15 else "icon"
+            open_icon_type = "small_open_icon" if self.view.line_height() < 15 else "open_icon"
+            close_icon_type = "small_close_icon" if self.view.line_height() < 15 else "close_icon"
         for name, r in self.bracket_regions.items():
             self.highlight_regions(
                 "bh_" + name, icon_type, "selections", r, regions, high_visibility
