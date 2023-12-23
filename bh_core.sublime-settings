@@ -340,8 +340,8 @@
         // Basic brackets
         {
             "name": "curly",
-            "open": "(\\{)",
-            "close": "(\\})",
+            "open": "(\\{(?!\\s*//))",
+            "close": "(\\}(?!\\s*//))",
             "style": "curly",
             "scope_exclude": [
                 "string",
